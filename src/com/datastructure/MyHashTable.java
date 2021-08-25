@@ -16,7 +16,7 @@ public class MyHashTable<K, V> {
             this.myBucketArray.add(null);
     }
 
-    //method for get value from LinkedList using index number
+    //method for get value from LinkedList
     public V get(K key) {
         int index = this.getBucketIndex(key);
         if (this.myBucketArray.get(index) == null)
@@ -74,6 +74,24 @@ public class MyHashTable<K, V> {
             this.tail = myNode;
         }
     }
+
+     //Method for removing word
+    public void remove(K key) {
+        MyMapNode<K, V> currentNode = head;
+        MyMapNode<K, V> previousNode = null;
+        while (currentNode != null && currentNode.getKey().equals(key)) {
+            head = currentNode.getNext();
+        }
+        while (currentNode != null && !(currentNode.getKey().equals(key))) {
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
+        if (currentNode != null)
+            previousNode.next = currentNode.next;
+        if (currentNode == null)
+            System.out.println("Word not found");
+    }
+
 
     @Override
     public String toString() {

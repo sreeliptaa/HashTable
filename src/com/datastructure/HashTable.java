@@ -1,8 +1,7 @@
 package com.datastructure;
 
 /**
- * Purpose - Find frequency of words of a large paragraph
- *
+ * Purpose - Remove avoidable word from paragraph
  * @author - Sreelipta
  */
 public class HashTable {
@@ -24,6 +23,7 @@ public class HashTable {
                 count = count + 1;
             hashMap.add(word, count);
         }
+        hashMap.remove("avoidable");
         System.out.println(hashMap);
     }
 }
