@@ -1,37 +1,65 @@
 package com.datastructure;
 
-public class MyHashTable<K, V> {
-    MyMapNode head;
-    MyMapNode tail;
+import java.util.ArrayList;
 
-    //Method for get the word from Linked List
-    public V get(K word) {
-        MyMapNode<K, V> myNode = searchNode(word);
+public class MyHashTable<K, V> {
+    MyMapNode<K, V> head;
+    MyMapNode<K, V> tail;
+    private final int numOfBuckets;
+    ArrayList<MyMapNode<K, V>> myBucketArray;
+
+    public MyHashTable() {
+        this.numOfBuckets = 10;
+        this.myBucketArray = new ArrayList<>(numOfBuckets);
+        // Create empty LinkedLists
+        for (int i = 0; i < numOfBuckets; i++)
+            this.myBucketArray.add(null);
+    }
+
+    //method for get value from LinkedList using index number
+    public V get(K key) {
+        int index = this.getBucketIndex(key);
+        if (this.myBucketArray.get(index) == null)
+            return null;
+        MyMapNode<K, V> myNode = search(key);
         return (myNode == null) ? null : myNode.getValue();
     }
 
-    //Method for searching word from Linked List
-    public MyMapNode<K, V> searchNode(K word) {
+
+    //Method for searching key from Linked List
+    public MyMapNode<K, V> search(K key) {
         MyMapNode<K, V> currentNode = head;
-        int position = 0;
         while (currentNode != null) {
-            position++;
-            if (currentNode.getKey().equals(word)) {
+            if (currentNode.getKey().equals(key)) {
                 return currentNode;
             }
             currentNode = currentNode.getNext();
         }
+
         return currentNode;
     }
 
     //Method for adding key and value to hash table
     public void add(K key, V value) {
-        MyMapNode<K, V> myNode = searchNode(key);
+        int index = this.getBucketIndex(key);
+        MyMapNode<K, V> myNode = this.myBucketArray.get(index);
+        if (myNode == null) {
+            myNode = new MyMapNode<>(key, value);
+            this.myBucketArray.set(index, myNode);
+        }
+        myNode = search(key);
         if (myNode == null) {
             myNode = new MyMapNode<>(key, value);
             this.append(myNode);
         } else
             myNode.setValue(value);
+    }
+
+    // This function find a key
+    public int getBucketIndex(K key) {
+        int hashCode = Math.abs(key.hashCode());
+        int index = hashCode % numOfBuckets;
+        return index;
 
     }
 

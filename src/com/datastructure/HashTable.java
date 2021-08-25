@@ -1,7 +1,8 @@
 package com.datastructure;
 
 /**
- * Purpose - Find frequency of words in a sentence - To be or not to be
+ * Purpose - Find frequency of words of a large paragraph
+ *
  * @author - Sreelipta
  */
 public class HashTable {
@@ -9,7 +10,7 @@ public class HashTable {
         System.out.println("Welcome to Hashtable Programs");
         //Creating object as hashMap for MyHashTable class
         MyHashTable<String, Integer> hashMap = new MyHashTable();
-        String statement = "To be or not to be";
+        String statement = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
         //converting statement into lowercase 
         String[] statementArray = statement.toLowerCase().split(" ");
 
